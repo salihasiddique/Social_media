@@ -49,30 +49,30 @@ class _HotelHomePageState extends State<HotelHomePage> {
         slivers: [
           SliverAppBar(
             title:Text("Find Your Favourite Hotel",),
-              bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(kToolbarHeight),
-                  child:Container(
-                    child: Padding(padding: EdgeInsets.all(5.0),
-                    child:Column(
-                      children:[
-                        TextField(
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(kToolbarHeight),
+              child:Container(
+                child: Padding(padding: EdgeInsets.all(5.0),
+                  child:Column(
+                    children:[
+                      TextField(
                         controller: _searchController,
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          hintText: "Search For Hotel",
-                          prefixIcon: Icon(Icons.search)
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: "Search For Hotel",
+                            prefixIcon: Icon(Icons.search)
+                        ),
                       ),
-                    ),
                     ],
-                    ),
                   ),
-                  ),
-
+                ),
               ),
-                floating: true,
-                pinned: false,
+
+            ),
+            floating: true,
+            pinned: false,
             actions: [
               ClipRRect(
                   borderRadius:BorderRadius.circular(20),
@@ -83,111 +83,111 @@ class _HotelHomePageState extends State<HotelHomePage> {
                   )
               ),
             ],
-            ),
+          ),
           // expanded widget cant place inside column
           //Listview inside Sliver Appbar may cause layout issues
           SliverList(
             delegate: SliverChildListDelegate(
               searchHotel.where((hotel) => hotel.toLowerCase().contains(query))
                   .map((hotel) => ListTile(
-                  title: Text(hotel),
+                title: Text(hotel),
               ))
                   .toList(),
             ),
           ),
-         SliverList(
-             delegate: SliverChildListDelegate(
-               [
-                 Column(
-                   children: [
-                     Padding(padding: EdgeInsets.all(8.0),
-                     child: Align(
-                       alignment: Alignment.centerLeft,
-                       child: Text("Popular Hotel",
-                           style: GoogleFonts.aBeeZee(
-                               fontSize: 20,
-                               fontWeight: FontWeight.bold)),
-                     ),
-                     ),
-                     Padding(padding: EdgeInsets.all(10.0),
-                     child: Container(
-                       height: 200,
-                       child: ListView.builder(
-                         scrollDirection: Axis.horizontal,
-                           itemCount: hotels.length,
-                           itemBuilder:(context,index){
-                             final hotel=hotels[index];
-                             return Card(
-                               elevation: 4,
-                               child:Padding(padding: EdgeInsets.all(4.3),
-                               child: Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                               children: [
-                                 Image.network(
-                                     hotel["image"],
-                                     height: 100,
-                                     width: 150,
+          SliverList(
+            delegate: SliverChildListDelegate(
+                [
+                  Column(
+                    children: [
+                      Padding(padding: EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Popular Hotel",
+                              style: GoogleFonts.aBeeZee(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.all(10.0),
+                        child: Container(
+                          height: 200,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: hotels.length,
+                              itemBuilder:(context,index){
+                                final hotel=hotels[index];
+                                return Card(
+                                  elevation: 4,
+                                  child:Padding(padding: EdgeInsets.all(4.3),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Image.network(
+                                          hotel["image"],
+                                          height: 100,
+                                          width: 150,
+                                        ),
+                                        SizedBox(height: 4,),
+                                        Text(hotel["name"]!),
+                                        SizedBox(width:3),
+                                        Text(hotel["Description"]!),
+                                        Row(
+                                          children: [
+                                            Text("₹${hotel["rent"].toString()}",
+                                              style: TextStyle(color: Colors.blue),),
+                                            SizedBox(width: 70,),
+                                            Text(hotel["rating"]!),
+                                            Icon(Icons.star,color: Colors.blue,size: 14,)
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                 SizedBox(height: 4,),
-                                 Text(hotel["name"]!),
-                                 SizedBox(width:3),
-                                 Text(hotel["Description"]!),
-                                 Row(
-                                   children: [
-                                     Text("₹${hotel["rent"].toString()}",
-                                     style: TextStyle(color: Colors.blue),),
-                                     SizedBox(width: 70,),
-                                     Text(hotel["rating"]!),
-                                     Icon(Icons.star,color: Colors.blue,size: 14,)
-                                   ],
-                                 )
-                               ],
-                             ),
-                             ),
-                             );
-                           }
-                       ),    
-                     ),
-                     ),
-                     Padding(padding: EdgeInsets.all(8.0),
-                       child: Align(
-                         alignment: Alignment.centerLeft,
-                         child: Text("Hotel Packages", style: GoogleFonts.aBeeZee(
-                             fontSize: 25,
-                             fontWeight: FontWeight.bold)),
-                       ),
-                     ),
-                   Padding(padding: EdgeInsets.all(8.0),
-                   child: Container(
-                      height: 300,
-                      child:ListView.builder(
-                          itemCount: hotels.length,
-                          itemBuilder: (context,index){
-                          final packagelist=hotels[index];
-                          return PackageCard(packagelist: packagelist);
-                         
-                          })
-                   )
+                                );
+                              }
+                          ),
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Hotel Packages", style: GoogleFonts.aBeeZee(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.all(8.0),
+                          child: Container(
+                              height: 300,
+                              child:ListView.builder(
+                                  itemCount: hotels.length,
+                                  itemBuilder: (context,index){
+                                    final packagelist=hotels[index];
+                                    return PackageCard(packagelist: packagelist);
 
-                   )
-                   ],
-                 )
-               ]
-             ),
-         ),
+                                  })
+                          )
+
+                      )
+                    ],
+                  )
+                ]
+            ),
+          ),
 
 
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.blue,
+          selectedItemColor: Colors.blue,
           selectedFontSize: 10,
           items:[
             BottomNavigationBarItem(
-                icon: ElevatedButton(onPressed: (){},
+              icon: ElevatedButton(onPressed: (){},
 
-                    child: Icon(Icons.home,)
-                ),
+                  child: Icon(Icons.home,)
+              ),
               label: "Home",
             ),
             BottomNavigationBarItem(
@@ -223,7 +223,7 @@ class PackageCard  extends StatelessWidget{
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.network(
-              packagelist["image"],
+            packagelist["image"],
             //height: double.infinity,
             height: 100,
             width:100,
@@ -233,26 +233,26 @@ class PackageCard  extends StatelessWidget{
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(packagelist["name"],
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(packagelist["Description"],),
-              Text("₹${packagelist["rent"].toString()}",
-                style: TextStyle(color: Colors.blue),
-              ),
-              Row(
-                children: [
-                  Icon(Icons.car_rental,color: Colors.blue,),
-                  SizedBox(width: 20,),
-                  Icon(Icons.hotel,color: Colors.blue,),
-                  SizedBox(width: 20,),
-                  Icon(Icons.wifi,color:Colors.blue),
-                ],
-                
-              )
-            ],
-          ),
+              children: [
+                Text(packagelist["name"],
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(packagelist["Description"],),
+                Text("₹${packagelist["rent"].toString()}",
+                  style: TextStyle(color: Colors.blue),
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.car_rental,color: Colors.blue,),
+                    SizedBox(width: 20,),
+                    Icon(Icons.hotel,color: Colors.blue,),
+                    SizedBox(width: 20,),
+                    Icon(Icons.wifi,color:Colors.blue),
+                  ],
+
+                )
+              ],
+            ),
           ),
           Align(
             alignment: Alignment.center,
@@ -273,6 +273,6 @@ class PackageCard  extends StatelessWidget{
         ],
       ),
     );
-   
+
   }
 }
